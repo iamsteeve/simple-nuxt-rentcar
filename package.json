@@ -7,12 +7,21 @@
     "build": "vue-cli-service build"
   },
   "dependencies": {
+    "humble-localstorage": "^2.0.0",
+    "idle-vue": "^2.0.5",
+    "material-design-icons-iconfont": "^4.0.5",
+    "moment-timezone": "^0.5.23",
     "register-service-worker": "^1.5.2",
+    "strapi-sdk-javascript": "^0.3.1",
     "vue": "^2.6.6",
     "vue-class-component": "^6.0.0",
+    "vue-moment": "^4.0.0",
     "vue-property-decorator": "^7.0.0",
     "vue-router": "^3.0.1",
-    "vuex": "^3.0.1"
+    "vue-session": "^1.0.0",
+    "vuetify": "^1.5.2",
+    "vuex": "^3.0.1",
+    "vuex-module-decorators": "^0.9.8"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.4.0",
