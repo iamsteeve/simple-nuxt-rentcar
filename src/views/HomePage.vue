@@ -94,7 +94,8 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-
+import StrapiService from '@/services/StrapiService'
+import Authentication from "@/store/modules/Authentication";
 export interface Stats {
   totalCustomers: number;
   totalSales: number;
@@ -104,11 +105,17 @@ export interface Stats {
 @Component
 export default class Home extends Vue {
   stats: Stats = {
-    totalCustomers: 1,
+    totalCustomers: 0,
     totalReservations: 2,
     totalSales: 3
-  }
-  username: string = 'Steeve'
+  };
+  username: string = Authentication.user.username;
+    async mounted(){
+        const responseCustomers = await StrapiService.Strapi.axios.get('/customers/count');
+        this.stats.totalCustomers = responseCustomers.data;
+        const responseReservations = await StrapiService.Strapi.axios.get('/reservations/count')
+        this.stats.totalReservations = responseReservations.data
+    }
 }
 </script>
 
