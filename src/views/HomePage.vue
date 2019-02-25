@@ -115,6 +115,8 @@ export default class Home extends Vue {
         this.stats.totalCustomers = responseCustomers.data;
         const responseReservations = await StrapiService.Strapi.axios.get('/reservations/count')
         this.stats.totalReservations = responseReservations.data
+      const responseSales = await StrapiService.Strapi.axios.get('/sales/count')
+      this.stats.totalSales = responseSales.data
     }
 }
 </script>
