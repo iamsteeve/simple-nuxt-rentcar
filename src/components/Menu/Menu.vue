@@ -99,7 +99,6 @@
             { icon: 'build', title: 'Reparaciones', to: '/fixes' },
             { icon: 'bookmark_border', title: 'Reservaciones', to: '/reservations' },
             { icon: 'person', title: 'Usuarios', to: '/users' },
-            { icon: 'settings', title: 'Configuración (Aun en construcción)' }
 
         ];
         public async logout (){

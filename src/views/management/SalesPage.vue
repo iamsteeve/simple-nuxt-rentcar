@@ -21,7 +21,11 @@
                                 <v-layout wrap>
 
                                     <v-flex xs12 sm6 md6>
-                                        <v-text-field v-model.number="editedItem.contractNumber" type="number"
+                                        <v-text-field v-model.number="editedItem.contractNumber"
+                                                      v-validate="'required'"
+                                                      :error-messages="errors.collect('numbercont')"
+                                                      data-vv-name="numbercont"
+                                                      type="number"
                                                       label="Numero de contrato"></v-text-field>
                                     </v-flex>
 
@@ -288,9 +292,14 @@
                                                 required
                                         ></v-select>
                                     </v-flex>
-
                                     <v-flex xs12 sm12 md12>
-                                        <v-text-field v-model="editedItem.exitKilometers"
+                                        <v-text-field v-model.number="editedItem.entryKilometers"
+                                                      type="number"
+                                                      label="Kilometro de Entrada"></v-text-field>
+                                    </v-flex>
+                                    <v-flex xs12 sm12 md12>
+                                        <v-text-field v-model.number="editedItem.exitKilometers"
+                                                      type="number"
                                                       label="Kilometro de salida"></v-text-field>
                                     </v-flex>
                                     <v-flex xs12 sm12 md12>
@@ -345,10 +354,10 @@
                 class="elevation-1"
         >
             <template slot="items" slot-scope="props">
-                <td class="subheading">{{ props.item.id }}</td>
-                <td class="text-sm-center subheading">{{ props.item.contractNumber }}</td>
-                <td class="text-sm-center subheading">{{ props.item.total }}</td>
-                <td class="text-sm-center subheading">{{ props.item.totalExtraHour }}</td>
+                <td class="subheading">{{ props.item.contractNumber }}</td>
+                <td class="text-sm-center subheading">${{ props.item.total }}</td>
+                <td class="text-sm-center subheading">{{ props.item.customer.firstName }}</td>
+                <td class="text-sm-center subheading">{{ props.item.user.username }}</td>
 
                 <td class="justify-center layout px-0">
                     <v-btn flat icon color="blue lighten-2">
@@ -439,6 +448,8 @@
             this.defaultItem.user.name = user ? user.username : '';
             this.editedItem.user.name = user ? user.username : '';
 
+            console.log(this.sales);
+
         }
 
         public sales: Sale[] = [];
@@ -490,17 +501,17 @@
         ];
         public headers: Array<any> = [
             {
-                text: 'Nombre',
+                text: 'Número de contrato',
                 align: 'left',
                 sortable: false,
                 class: 'subheading',
-                value: 'firstName'
+                value: 'contractNumber'
             },
-            {text: 'Apellidos', class: 'subheading', value: 'lastName'},
-            {text: 'Edad', class: 'subheading', value: 'age'},
-            {text: 'Domicilio', class: 'subheading', value: 'address'},
+            {text: 'Total', class: 'subheading', value: 'total'},
+            {text: 'Cliente', class: 'subheading', value: 'customer'},
+            {text: 'Usuario', class: 'subheading', value: 'user'},
 
-            {text: 'Actions', class: 'subheading', value: 'name', sortable: false}
+            {text: 'Actions', class: 'subheading', value: 'actions', sortable: false}
         ];
         public editedIndex: number = -1;
         public editedItem: any= {
@@ -727,7 +738,7 @@
                             priceForDay: this.editedItem.priceForDay,
                             notes: this.editedItem.notes,
                             entryKilometers: this.editedItem.entryKilometers,
-                            exitKilometers: this.editedItem.entryKilometers,
+                            exitKilometers: this.editedItem.exitKilometers,
                             kilometersTraveled: this.editedItem.kilometersTraveled,
                             finished: this.editedItem.finished,
                             extraHour: this.editedItem.extraHour,
@@ -760,18 +771,18 @@
                         });
                     await this.fetchAll();
                 } else {
-                    const customers = await StrapiService.Strapi.axios.put(`/sales`,
+                    const customers = await StrapiService.Strapi.axios.post(`/sales`,
                         {
                             contractNumber: this.editedItem.contractNumber,
                             car: this.editedItem.car.id,
                             customer: this.editedItem.customer.id,
-                            user: this.editedItem.user,
+                            user: this.editedItem.user.id,
                             exitDate: this.editedItem.exitDate,
                             entryDate: this.editedItem.entryDate,
                             priceForDay: this.editedItem.priceForDay,
                             notes: this.editedItem.notes,
                             entryKilometers: this.editedItem.entryKilometers,
-                            exitKilometers: this.editedItem.entryKilometers,
+                            exitKilometers: this.editedItem.exitKilometers,
                             kilometersTraveled: this.editedItem.kilometersTraveled,
                             finished: this.editedItem.finished,
                             extraHour: this.editedItem.extraHour,
