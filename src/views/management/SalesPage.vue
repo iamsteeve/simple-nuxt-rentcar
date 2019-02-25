@@ -391,7 +391,7 @@
     @Component({
         $_veeValidate: { validator: "new" }
     })
-    export default class Sales extends Vue {
+    export default class SalesPage extends Vue {
 
         async fetchAll() {
             const responseSales = await StrapiService.Strapi.axios.get(`/sales`);
@@ -399,7 +399,7 @@
             const responseCars = await StrapiService.Strapi.axios.get(`/cars`);
             const responseUsers = await StrapiService.Strapi.axios.get(`/users`);
 
-            const newSales = responseSales.data.map((sale) => {
+            const newSales = responseSales.data.map((sale: any) => {
                 return {
                     ...sale,
                     issuanceLicenseDriveDate: sale.issuanceLicenseDriveDate? sale.issuanceLicenseDriveDate.substr(0,10): '',
@@ -409,14 +409,14 @@
                 }
             });
             const newCustomers = responseCustomers.data
-                .map((customer)=> (
+                .map((customer: any)=> (
                     {
                         text: `${customer.firstName} ${customer.lastName}`,
                         value: customer.id
                     }
                 ));
             const newCars = responseCars.data
-                .map((car) => {
+                .map((car: any) => {
                     return {
                         text: `${car.brand} - ${car.model}`,
                         value: car.id
@@ -433,11 +433,11 @@
 
             this.editedItem.user.id = this.userID;
             this.defaultItem.user.id = this.userID;
-            const user = this.users.find((user)=> {
+            const user = this.users.find((user: any)=> {
                 return user._id === this.userID
             });
-            this.defaultItem.user.name = user.username;
-            this.editedItem.user.name = user.username;
+            this.defaultItem.user.name = user ? user.username : '';
+            this.editedItem.user.name = user ? user.username : '';
 
         }
 
@@ -605,12 +605,12 @@
             return this.editedIndex === -1 ? 'Nueva Venta' : 'Editar Venta'
         }
 
-        public parseDateIss(item) {
+        public parseDateIss(item: any) {
             const date = new Date(item);
             return `${date.getDate()} - ${date.getMonth()} - ${date.getFullYear()}`
         }
 
-        public parseDateVen(item) {
+        public parseDateVen(item: any) {
             const date = new Date(item);
             return `${date.getDate()} - ${date.getMonth()} - ${date.getFullYear()}`
         }
@@ -685,17 +685,17 @@
 
 
         @Watch('dialog')
-        dialogWatch(val) {
+        dialogWatch(val: any) {
             val || this.close()
         }
 
-        editItem(item) {
+        editItem(item: any) {
             this.editedIndex = this.sales.indexOf(item)
             this.editedItem = Object.assign({}, item)
             this.dialog = true
         }
 
-        async deleteItem(item) {
+        async deleteItem(item: any) {
             const index = this.sales.indexOf(item)
             confirm('¿De verdad necesita eliminar la venta?') && await StrapiService.Strapi.axios.delete(`/sales/${item.id}`)
             await this.fetchAll();
@@ -713,95 +713,98 @@
         }
 
         async save() {
-            if (this.editedIndex > -1) {
-                const customers = await StrapiService.Strapi.axios.put(`/sales/${this.editedItem.id}/`,
-                    {
-                        contractNumber: this.editedItem.contractNumber,
-                        car: this.editedItem.car,
-                        customer: this.editedItem.customer,
-                        user: this.editedItem.user.id,
-                        exitDate: this.editedItem.exitDate,
-                        entryDate: this.editedItem.entryDate,
-                        priceForDay: this.editedItem.priceForDay,
-                        notes: this.editedItem.notes,
-                        entryKilometers: this.editedItem.entryKilometers,
-                        exitKilometers: this.editedItem.entryKilometers,
-                        kilometersTraveled: this.editedItem.kilometersTraveled,
-                        finished: this.editedItem.finished,
-                        extraHour: this.editedItem.extraHour,
-                        dayPrice: this.editedItem.dayPrice,
-                        haveAccidentInsurance: this.editedItem.haveAccidentInsurance,
-                        haveCollisionInsurance: this.editedItem.haveCollisionInsurance,
-                        haveDriver: this.editedItem.haveDriver,
-                        driverName:  this.editedItem.driverName,
-                        driverLicense: this.editedItem.driverLicense,
-                        expirationLicenseDriverDate: this.editedItem.expirationLicenseDriverDate,
-                        issuanceLicenseDriveDate: this.editedItem.issuanceLicenseDriveDate,
-                        deposit: this.editedItem.deposit,
-                        moneyAdvance: this.editedItem.moneyAdvance,
-                        haveIVA: this.editedItem.haveIVA,
-                        eighthsGasEntry: this.editedItem.eighthsGasEntry,
-                        eighthsGasExit: this.editedItem.eighthsGasExit,
-                        refunds: this.editedItem.refunds,
-                        totalIVA: this.totalIVA,
-                        totalExtraHour: this.totalExtraHour,
-                        totalDays: this.totalDays,
-                        totalInsurance: this.totalInsurance,
-                        totalDriver: this.totalDriver,
-                        total: this.total,
-                        damage: this.editedItem.damage,
-                        days: this.editedItem.days,
-                        typeCard: this.editedItem.typeCard,
-                        payment: this.editedItem.payment,
-                        serie: this.editedItem.serie,
+            const resultV = await this.$validator.validateAll();
+            if (resultV){
+                if (this.editedIndex > -1) {
+                    const customers = await StrapiService.Strapi.axios.put(`/sales/${this.editedItem.id}/`,
+                        {
+                            contractNumber: this.editedItem.contractNumber,
+                            car: this.editedItem.car,
+                            customer: this.editedItem.customer,
+                            user: this.editedItem.user.id,
+                            exitDate: this.editedItem.exitDate,
+                            entryDate: this.editedItem.entryDate,
+                            priceForDay: this.editedItem.priceForDay,
+                            notes: this.editedItem.notes,
+                            entryKilometers: this.editedItem.entryKilometers,
+                            exitKilometers: this.editedItem.entryKilometers,
+                            kilometersTraveled: this.editedItem.kilometersTraveled,
+                            finished: this.editedItem.finished,
+                            extraHour: this.editedItem.extraHour,
+                            dayPrice: this.editedItem.dayPrice,
+                            haveAccidentInsurance: this.editedItem.haveAccidentInsurance,
+                            haveCollisionInsurance: this.editedItem.haveCollisionInsurance,
+                            haveDriver: this.editedItem.haveDriver,
+                            driverName:  this.editedItem.driverName,
+                            driverLicense: this.editedItem.driverLicense,
+                            expirationLicenseDriverDate: this.editedItem.expirationLicenseDriverDate,
+                            issuanceLicenseDriveDate: this.editedItem.issuanceLicenseDriveDate,
+                            deposit: this.editedItem.deposit,
+                            moneyAdvance: this.editedItem.moneyAdvance,
+                            haveIVA: this.editedItem.haveIVA,
+                            eighthsGasEntry: this.editedItem.eighthsGasEntry,
+                            eighthsGasExit: this.editedItem.eighthsGasExit,
+                            refunds: this.editedItem.refunds,
+                            totalIVA: this.totalIVA,
+                            totalExtraHour: this.totalExtraHour,
+                            totalDays: this.totalDays,
+                            totalInsurance: this.totalInsurance,
+                            totalDriver: this.totalDriver,
+                            total: this.total,
+                            damage: this.editedItem.damage,
+                            days: this.editedItem.days,
+                            typeCard: this.editedItem.typeCard,
+                            payment: this.editedItem.payment,
+                            serie: this.editedItem.serie,
 
-                    });
-                await this.fetchAll();
-            } else {
-                const customers = await StrapiService.Strapi.axios.put(`/sales`,
-                    {
-                        contractNumber: this.editedItem.contractNumber,
-                        car: this.editedItem.car.id,
-                        customer: this.editedItem.customer.id,
-                        user: this.editedItem.user,
-                        exitDate: this.editedItem.exitDate,
-                        entryDate: this.editedItem.entryDate,
-                        priceForDay: this.editedItem.priceForDay,
-                        notes: this.editedItem.notes,
-                        entryKilometers: this.editedItem.entryKilometers,
-                        exitKilometers: this.editedItem.entryKilometers,
-                        kilometersTraveled: this.editedItem.kilometersTraveled,
-                        finished: this.editedItem.finished,
-                        extraHour: this.editedItem.extraHour,
-                        dayPrice: this.editedItem.dayPrice,
-                        haveAccidentInsurance: this.editedItem.haveAccidentInsurance,
-                        haveCollisionInsurance: this.editedItem.haveCollisionInsurance,
-                        haveDriver: this.editedItem.haveDriver,
-                        driverName:  this.editedItem.driverName,
-                        driverLicense: this.editedItem.driverLicense,
-                        expirationLicenseDriverDate: this.editedItem.expirationLicenseDriverDate,
-                        issuanceLicenseDriveDate: this.editedItem.issuanceLicenseDriveDate,
-                        deposit: this.editedItem.deposit,
-                        moneyAdvance: this.editedItem.moneyAdvance,
-                        haveIVA: this.editedItem.haveIVA,
-                        eighthsGasEntry: this.editedItem.eighthsGasEntry,
-                        eighthsGasExit: this.editedItem.eighthsGasExit,
-                        refunds: this.editedItem.refunds,
-                        totalIVA: this.totalIVA,
-                        totalExtraHour: this.totalExtraHour,
-                        totalDays: this.totalDays,
-                        totalInsurance: this.totalInsurance,
-                        totalDriver: this.totalDriver,
-                        total: this.total,
-                        damage: this.editedItem.damage,
-                        days: this.editedItem.days,
-                        typeCard: this.editedItem.typeCard,
-                        payment: this.editedItem.payment,
-                        serie: this.editedItem.serie,
-                    });
-                await this.fetchAll();
+                        });
+                    await this.fetchAll();
+                } else {
+                    const customers = await StrapiService.Strapi.axios.put(`/sales`,
+                        {
+                            contractNumber: this.editedItem.contractNumber,
+                            car: this.editedItem.car.id,
+                            customer: this.editedItem.customer.id,
+                            user: this.editedItem.user,
+                            exitDate: this.editedItem.exitDate,
+                            entryDate: this.editedItem.entryDate,
+                            priceForDay: this.editedItem.priceForDay,
+                            notes: this.editedItem.notes,
+                            entryKilometers: this.editedItem.entryKilometers,
+                            exitKilometers: this.editedItem.entryKilometers,
+                            kilometersTraveled: this.editedItem.kilometersTraveled,
+                            finished: this.editedItem.finished,
+                            extraHour: this.editedItem.extraHour,
+                            dayPrice: this.editedItem.dayPrice,
+                            haveAccidentInsurance: this.editedItem.haveAccidentInsurance,
+                            haveCollisionInsurance: this.editedItem.haveCollisionInsurance,
+                            haveDriver: this.editedItem.haveDriver,
+                            driverName:  this.editedItem.driverName,
+                            driverLicense: this.editedItem.driverLicense,
+                            expirationLicenseDriverDate: this.editedItem.expirationLicenseDriverDate,
+                            issuanceLicenseDriveDate: this.editedItem.issuanceLicenseDriveDate,
+                            deposit: this.editedItem.deposit,
+                            moneyAdvance: this.editedItem.moneyAdvance,
+                            haveIVA: this.editedItem.haveIVA,
+                            eighthsGasEntry: this.editedItem.eighthsGasEntry,
+                            eighthsGasExit: this.editedItem.eighthsGasExit,
+                            refunds: this.editedItem.refunds,
+                            totalIVA: this.totalIVA,
+                            totalExtraHour: this.totalExtraHour,
+                            totalDays: this.totalDays,
+                            totalInsurance: this.totalInsurance,
+                            totalDriver: this.totalDriver,
+                            total: this.total,
+                            damage: this.editedItem.damage,
+                            days: this.editedItem.days,
+                            typeCard: this.editedItem.typeCard,
+                            payment: this.editedItem.payment,
+                            serie: this.editedItem.serie,
+                        });
+                    await this.fetchAll();
+                }
+                this.close()
             }
-            this.close()
         }
 
     }

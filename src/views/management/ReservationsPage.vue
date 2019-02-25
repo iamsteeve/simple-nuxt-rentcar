@@ -155,20 +155,20 @@
     @Component({
         $_veeValidate: { validator: "new" }
     })
-    export default class Reservations extends Vue {
+    export default class ReservationsPage extends Vue {
 
 
 
         async fetchData() {
             const response = await StrapiService.Strapi.axios.get(`/reservations`);
-            const newReservations = response.data.map((customer) => {
+            const newReservations = response.data.map((customer:any) => {
                 return {
                     ...customer,
                     date: customer.date.substr(0,10)
                 }
             });
             const responseCar = await StrapiService.Strapi.axios.get(`/cars`);
-            const newCars = responseCar.data.map((car) => {
+            const newCars = responseCar.data.map((car:any) => {
                 return {
                     text: `${car.brand} ${car.model}`,
                     value: car.id
@@ -176,7 +176,7 @@
             })
             const responseCustomer= await StrapiService.Strapi.axios.get(`/customers`);
             const newCustomers = responseCustomer.data
-                .map((customer)=> (
+                .map((customer:any)=> (
                     {
                         text: `${customer.firstName} ${customer.lastName}`,
                         value: customer.id
@@ -250,31 +250,31 @@
             return this.editedIndex === -1 ? 'Nuevo Cliente' : 'Editar Cliente'
         }
 
-        public parseDateIss(item) {
+        public parseDateIss(item: any) {
             const date = new Date(item);
             return `${date.getDate()} - ${date.getMonth()} - ${date.getFullYear()}`
         }
 
-        public parseDateVen(item) {
+        public parseDateVen(item: any) {
             const date = new Date(item);
             return `${date.getDate()} - ${date.getMonth()} - ${date.getFullYear()}`
         }
 
         @Watch('dialog')
-        dialogWatch(val) {
+        dialogWatch(val: any) {
             val || this.close()
         }
 
-        editItem(item) {
+        editItem(item: any) {
             this.editedIndex = this.reservations.indexOf(item)
             this.editedItem = Object.assign({}, item)
             this.dialog = true
         }
 
-        async deleteItem(item) {
+        async deleteItem(item: any) {
             const index = this.reservations.indexOf(item)
             confirm('Está seguro de eliminarlo?') && await StrapiService.Strapi.axios.delete(`/reservations/${item.id}`)
-            this.fetchData();
+            await this.fetchData();
         }
 
         close() {
