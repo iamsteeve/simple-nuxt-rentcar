@@ -17,7 +17,7 @@ class StrapiService {
     private strapiInstance: Strapi;
 
     private constructor() {
-        this.strapiInstance = new Strapi(process.env.SERVER_URL_PERICOS? process.env.SERVER_URL_PERICOS: `http://142.93.12.123:1337/`);
+        this.strapiInstance = new Strapi(process.env.SERVER_URL_PERICOS? process.env.SERVER_URL_PERICOS: `http://165.227.111.152:1337/`);
         // do something construct...
     }
 

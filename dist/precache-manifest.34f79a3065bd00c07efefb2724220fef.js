@@ -52,8 +52,8 @@ self.__precacheManifest = [
     "url": "/img/periquito.7f207577.png"
   },
   {
-    "revision": "1a3411963e3c6cab4f06",
-    "url": "/js/app.1d44fbe3.js"
+    "revision": "1c8f8b84fb49dbca3a3a",
+    "url": "/js/app.ff73491d.js"
   },
   {
     "revision": "bca3a1873ac988faff0817eca96b2d86",
@@ -72,7 +72,7 @@ self.__precacheManifest = [
     "url": "/img/deadpage2.3c5a191c.png"
   },
   {
-    "revision": "3cc12c31834810451acb8b14d5ad824c",
+    "revision": "3db25d1f85fc2045c600002f84c0c8c6",
     "url": "/index.html"
   },
   {
@@ -96,7 +96,7 @@ self.__precacheManifest = [
     "url": "/css/chunk-60fd132d.f08cd513.css"
   },
   {
-    "revision": "1a3411963e3c6cab4f06",
+    "revision": "1c8f8b84fb49dbca3a3a",
     "url": "/css/app.8ca81de3.css"
   }
 ];
