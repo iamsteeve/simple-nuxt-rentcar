@@ -1,5 +1,5 @@
 <template>
-  <v-app :dark="isUserLogged">
+  <v-app >
     <Menu v-if="isUserLogged"></Menu>
     <v-content>
       <v-container fluid grid-list-md text-xs-center>

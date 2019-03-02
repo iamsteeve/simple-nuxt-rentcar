@@ -32,7 +32,7 @@
               <v-card-actions>
                 <v-spacer></v-spacer>
                 Ir a Clientes
-                <v-btn router to="/customers" flat icon dark >
+                <v-btn router to="/customers" flat icon  >
                   <v-icon>directions</v-icon>
                 </v-btn>
               </v-card-actions>
@@ -56,7 +56,7 @@
               <v-card-actions>
                 <v-spacer></v-spacer>
                 Ir a Ventas
-                <v-btn router to="/sales" flat icon dark >
+                <v-btn router to="/sales" flat icon>
                   <v-icon>directions</v-icon>
                 </v-btn>
               </v-card-actions>
@@ -80,7 +80,7 @@
               <v-card-actions>
                 <v-spacer></v-spacer>
                 Ir a Reservaciones
-                <v-btn router to="/reservations" flat icon dark >
+                <v-btn router to="/reservations" flat icon >
                   <v-icon>directions</v-icon>
                 </v-btn>
               </v-card-actions>

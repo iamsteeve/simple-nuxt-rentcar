@@ -9,7 +9,7 @@
             ></v-divider>
             <v-spacer></v-spacer>
             <v-dialog v-model="dialog" max-width="500px">
-                <v-btn slot="activator" color="primary" dark class="mb-2">Agrega una reparación</v-btn>
+                <v-btn slot="activator" color="primary" class="mb-2">Agrega una reparación</v-btn>
                 <v-card>
                     <v-card-title>
                         <span class="headline">{{ editedItem.code ? `${editedItem.car.model} - ${editedItem.licensePlate}` : formTitle }}</span>

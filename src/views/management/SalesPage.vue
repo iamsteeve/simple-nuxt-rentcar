@@ -9,7 +9,7 @@
             ></v-divider>
             <v-spacer></v-spacer>
             <v-dialog v-model="dialog" max-width="500px">
-                <v-btn slot="activator" color="primary" dark class="mb-2">Agrega una nueva venta</v-btn>
+                <v-btn slot="activator" color="primary"  class="mb-2">Agrega una nueva venta</v-btn>
                 <v-card>
                     <v-card-title>
                         <span class="headline">{{ editedItem.contractNumber ? contractSerie : formTitle }}</span>
@@ -31,7 +31,7 @@
 
                                     <v-flex xs12 sm6 md6 >
                                         <h2>
-                                            Vendedor: {{editedItem.user.name}}
+                                            Vendedor: {{editedItem.user.username}}
                                         </h2>
                                     </v-flex>
                                     <v-flex xs12 sm12 md12>
@@ -445,8 +445,8 @@
             const user = this.users.find((user: any)=> {
                 return user._id === this.userID
             });
-            this.defaultItem.user.name = user ? user.username : '';
-            this.editedItem.user.name = user ? user.username : '';
+            this.defaultItem.user.username = user ? user.username : '';
+            this.editedItem.user.username = user ? user.username : '';
 
             console.log(this.sales);
 
@@ -525,7 +525,7 @@
             },
             user: {
                 id: '',
-                name: ''
+                username: ''
             },
             exitDate: new Date().toISOString().substr(0, 10),
             entryDate: new Date().toISOString().substr(0, 10),
@@ -573,7 +573,7 @@
             },
             user: {
                 id: '',
-                name: ''
+                username: ''
             },
             exitDate: new Date().toISOString().substr(0, 10),
             entryDate: new Date().toISOString().substr(0, 10),
