@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/precache-manifest.39246dfab383b69cc70205ea3ecaf66a.js"
+  "/precache-manifest.28c2865b03ea6c2c55dc2f858b465536.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "playa"});
