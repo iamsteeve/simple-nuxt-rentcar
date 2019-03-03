@@ -280,7 +280,7 @@
                         {
                             email: this.editedItem.email,
                             username: this.editedItem.username,
-                            password: '12345678'
+                            password: this.editedItem.password
                         });
                     await this.fetchUsers();
                 }

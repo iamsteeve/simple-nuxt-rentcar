@@ -12,8 +12,8 @@ self.__precacheManifest = [
     "url": "/js/chunk-f76b64fa.dfc5da97.js"
   },
   {
-    "revision": "20bf3eade4a1a727ba45",
-    "url": "/js/chunk-04ae0ab8.c06e9016.js"
+    "revision": "8e961a3c6b1100bba18c",
+    "url": "/js/chunk-04ae0ab8.7b576dbf.js"
   },
   {
     "revision": "d64104c32b74ec510738",
@@ -52,8 +52,8 @@ self.__precacheManifest = [
     "url": "/img/periquito.7f207577.png"
   },
   {
-    "revision": "b4bb5ac1328812120488",
-    "url": "/js/app.6146c581.js"
+    "revision": "023993dfeec2dff9777d",
+    "url": "/js/app.1dd06da8.js"
   },
   {
     "revision": "bca3a1873ac988faff0817eca96b2d86",
@@ -72,7 +72,7 @@ self.__precacheManifest = [
     "url": "/img/deadpage2.3c5a191c.png"
   },
   {
-    "revision": "5f9dce68fb98c92e7c2607e147e7c32c",
+    "revision": "6b1af69ae3dc7eb6f29f07bee83f368d",
     "url": "/index.html"
   },
   {
@@ -96,7 +96,7 @@ self.__precacheManifest = [
     "url": "/css/chunk-60fd132d.f08cd513.css"
   },
   {
-    "revision": "b4bb5ac1328812120488",
+    "revision": "023993dfeec2dff9777d",
     "url": "/css/app.8ca81de3.css"
   }
 ];
